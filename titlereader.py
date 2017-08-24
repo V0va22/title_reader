@@ -74,10 +74,9 @@ def print_title(title):
     print('Title: {}'.format(title))
 
 
-def add_song_to_playlist(title, username, password, playlist):
+def add_song_to_playlist(title, api, playlist):
     try:
-        api = Mobileclient()
-        api.login(username, password, Mobileclient.FROM_MAC_ADDRESS)
+
         search_result = api.search(title, max_results=1)
         store_id = search_result['song_hits'][0]['track']['storeId']
         if store_id in get_playlist_song_ids(api, playlist):
@@ -113,6 +112,7 @@ if __name__ == '__main__':
     parser.add_argument("-s", "--stream_url", dest="stream_url", nargs="?", help="stream url")
 
     args = parser.parse_args()
+
     def monitor_updates():
         while True:
             time.sleep(600)
@@ -122,7 +122,9 @@ if __name__ == '__main__':
                 os._exit(1)
 
     thread.start_new_thread(monitor_updates, ())
+    api = Mobileclient()
+    api.login(args.user, args.password, Mobileclient.FROM_MAC_ADDRESS)
 
     icy_monitor(args.stream_url,
-                callback=lambda title: add_song_to_playlist(title, args.user, args.password, args.playlist))
+                callback=lambda title: add_song_to_playlist(title, api, args.playlist))
 
