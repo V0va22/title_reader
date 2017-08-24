@@ -6,6 +6,7 @@ import time
 import thread
 import argparse
 import logging
+import os
 
 try:
     from StringIO import StringIO as BytesIO
@@ -121,7 +122,7 @@ if __name__ == '__main__':
         while True:
             time.sleep(600)
             if time.time() - last_update > 600:
-                import os
+
                 logging.warn('exit')
                 os._exit(1)
     if args.bash_pid:

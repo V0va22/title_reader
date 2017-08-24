@@ -1,1 +1,1 @@
-worker:  bash run.sh {pass}
+worker:  bash run.sh

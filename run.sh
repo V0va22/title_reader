@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
-if [ -z "$1" ]
+if [ -n "$1" ]
   then
-    read -s -p "Enter google Password: " mypassword
-  else
     mypassword=$1
+
+elif [ -n "$GMPASS" ]
+  then
+    mypassword=$GMPASS
+else
+    read -s -p "Enter google Password: " mypassword
 fi
 while :
 do
