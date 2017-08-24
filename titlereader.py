@@ -124,10 +124,8 @@ if __name__ == '__main__':
                 import os
                 logging.warn('exit')
                 os._exit(1)
-    print 11
     if args.bash_pid:
         logging.warn("PID: " + str(args.bash_pid))
-        print 22
 
     thread.start_new_thread(monitor_updates, ())
     api = Mobileclient(debug_logging=False)
